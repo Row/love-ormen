@@ -1,30 +1,21 @@
--- Load some default values for our rectangle.
-local text
-local direction
-local level
-local snake
-local width;
-local height;
-
 function getPart(a,b)
     return {x=a, y=b}
 end
 
-function getFood() 
+function getFood()
    return {
-       x=math.random(20, 280), 
-       y=math.random(20, 280), 
+       x=math.random(20, 280),
+       y=math.random(20, 280),
        power=math.random(1, 10)
     }
 end
 
 function isCollision(p1, p2, threshold)
-    -- only check x to detect
+    -- todo only check x to detect
     return math.sqrt(math.pow(p1.x - p2.x, 2) + math.pow(p1.y - p2.y, 2)) < threshold
 end
 
-
-function resetGame() 
+function resetGame()
     x, y = 20, 20
     speed = 1
     snake = {getPart(x, y)}
@@ -42,7 +33,6 @@ function love.load()
     x, y = 20, 20, 10, 10
     snake_width, snake_height = 5, 5
     width, height = love.window.getMode()
-    text = "Ormen"
     highScore = 0
     resetGame()
 end
@@ -93,21 +83,17 @@ function love.update(dt)
     else
         table.remove(snake, 1)
     end
-
-    --speed = speed + 0.01
 end
  
 function love.keypressed( key, isrepeat )
     if key == "up" or key == "down" or key == "left" or key == "right" then
         direction = key
-        text = direction .. " " .. snakeGrowth
     end
     if hasLost and key == 'space' then
         resetGame()
     end
 end
 
--- Draw a coloured rectangle.
 function love.draw()
     love.graphics.setColor(0, 0.4, 0.4)
     for k, v in pairs(snake) do
